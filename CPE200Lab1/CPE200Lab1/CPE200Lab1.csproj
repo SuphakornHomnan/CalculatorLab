@@ -46,14 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalculatorEngine.cs" />
-    <Compile Include="CalculatorEngineController.cs" />
-    <Compile Include="CalculatorEngineModel.cs" />
-    <Compile Include="CalculatorEngineView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CalculatorEngineView.Designer.cs">
-      <DependentUpon>CalculatorEngineView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controller.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="TheCalculatorEngine.cs" />

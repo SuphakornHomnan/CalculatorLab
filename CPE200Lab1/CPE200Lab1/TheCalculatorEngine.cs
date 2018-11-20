@@ -8,135 +8,143 @@ namespace CPE200Lab1
 {
     public class TheCalculatorEngine
     {
-        public bool isNumber(string str)
+        /// <summary>
+        /// Check that is string of number.
+        /// </summary>
+        /// <param name="str">String will be check.</param>
+        /// <returns>True if string is number, otherwise false.</returns>
+        protected bool isNumber(string str)
         {
             double retNum;
             return Double.TryParse(str, out retNum);
         }
 
-        public bool isOperator(string str)
+        /// <summary>
+        /// Check that is string of operator.
+        /// </summary>
+        /// <param name="str">String will be check.</param>
+        /// <returns>True if string is operator</returns>
+        protected bool isOperator(string str)
         {
-            switch(str) {
+            switch (str)
+            {
                 case "+":
                 case "-":
                 case "X":
                 case "÷":
-                case "%":
-                case "√":
-                case "1/x":
                     return true;
-
             }
             return false;
         }
 
-        public string calculate(string str)
+        /// <summary>
+        /// Check that is unary operator.
+        /// </summary>
+        /// <param name="str">The string will be check.</param>
+        /// <returns>True if string is unary oprerator, otherwise false.</returns>
+        protected bool isUnary(string str)
         {
-            string[] parts = str.Split(' ');
-            if(!(isNumber(parts[0]) && isOperator(parts[1]) && isNumber(parts[2])))
+            switch (str)
             {
-                return "E";
-            } else
-            {
-                return calculate(parts[1], parts[0], parts[2], 4);
+                case "1/x":
+                case "√":
+                    return true;
             }
-
+            return false;
         }
+
+        /// <summary>
+        /// Calculate(squre root, one over x) single string of number.
+        /// </summary>
+        /// <param name="operate">The stirng of operator for calculation</param>
+        /// <param name="operand">The string of operand.</param>
+        /// <param name="maxOutputSize">Define maximum number of digit that is result.</param>
+        /// <returns>The result of string.</returns>
         public string calculate(string operate, string operand, int maxOutputSize = 8)
         {
             switch (operate)
             {
                 case "√":
                     {
-                        Console.WriteLine("Enter root case."+operand);
-                        double result;
-                        string[] parts;
-                        int remainLength;
-
-                        result = Math.Sqrt(Convert.ToDouble(operand));
-                        Console.WriteLine(result);
-                        // split between integer part and fractional part
-                        parts = result.ToString().Split('.');
-                        Console.WriteLine(parts+" "+maxOutputSize);
-                        // if integer part length is already break max output, return error
-                        if (parts[0].Length > maxOutputSize)
-                        {
-                            return "E";
-                        } 
-                        // calculate remaining space for fractional part.
-                        
-                        
-                        // trim the fractional part gracefully. =
-                        return result.ToString(/*"N" + remainLength*/);
+                        return fixFractionalParts(Math.Sqrt(Convert.ToDouble(operand)), maxOutputSize);
                     }
                 case "1/x":
-                    if(operand != "0")
+                    if (operand != "0")
                     {
-                        double result;
-                        string[] parts;
-                        int remainLength;
-
-                        result = (1.0 / Convert.ToDouble(operand));
-                        // split between integer part and fractional part
-                        parts = result.ToString().Split('.');
-                        // if integer part length is already break max output, return error
-                        if (parts[0].Length > maxOutputSize)
-                        {
-                            return "E";
-                        }
-                        // calculate remaining space for fractional part.
-                        remainLength = maxOutputSize - parts[0].Length - 1;
-                        // trim the fractional part gracefully. =
-                        return result.ToString(/*"N" + remainLength*/);
+                        return fixFractionalParts(1 / Convert.ToDouble(operand), maxOutputSize);
                     }
                     break;
             }
             return "E";
         }
 
+        /// <summary>
+        /// Calculate(plus, minus, mutiply, divide) two string of number.
+        /// </summary>
+        /// <param name="operate">The string of operator.</param>
+        /// <param name="firstOperand">The string of first operand.</param>
+        /// <param name="secondOperand">The string of second operand.</param>
+        /// <param name="maxOutputSize">Define maximum number of digit that is result.</param>
+        /// <returns>The result of string.</returns>
         public string calculate(string operate, string firstOperand, string secondOperand, int maxOutputSize = 8)
         {
-            switch (operate)
-            {
-                case "+":
-                    return (Convert.ToDouble(firstOperand) + Convert.ToDouble(secondOperand)).ToString();
-                case "-":
-                    return (Convert.ToDouble(firstOperand) - Convert.ToDouble(secondOperand)).ToString();
-                case "X":
-                    return (Convert.ToDouble(firstOperand) * Convert.ToDouble(secondOperand)).ToString();
-                case "÷":
-                    // Not allow devide be zero
-                    if (secondOperand != "0")
-                    {
-                        double result;
-                        string[] parts;
-                        int remainLength;
-
-                        result = (Convert.ToDouble(firstOperand) / Convert.ToDouble(secondOperand));
-                        // split between integer part and fractional part
-                        parts = result.ToString().Split('.');
-                        // if integer part length is already break max output, return error
-                        if (parts[0].Length > maxOutputSize)
+            
+                switch (operate)
+                {
+                    case "+":
+                        return (Convert.ToDouble(firstOperand) + Convert.ToDouble(secondOperand)).ToString();
+                    case "-":
+                        return (Convert.ToDouble(firstOperand) - Convert.ToDouble(secondOperand)).ToString();
+                    case "X":
+                        return (Convert.ToDouble(firstOperand) * Convert.ToDouble(secondOperand)).ToString();
+                    case "÷":
+                        // Not allow devide be zero
+                        if (secondOperand != "0")
                         {
-                            return "E";
+                            return fixFractionalParts(Convert.ToDouble(firstOperand) / Convert.ToDouble(secondOperand), maxOutputSize);
                         }
-                        // calculate remaining space for fractional part.
-                        remainLength = maxOutputSize - parts[0].Length - 1;
-                        // trim the fractional part gracefully. =
-                        return result.ToString(/*"N" + remainLength*/);
-                    }
-                    break;
-                case "%":
-                    if (firstOperand == "1")
-                    {
-                        return (Convert.ToDouble(secondOperand) * (Convert.ToDouble(firstOperand) / 100)).ToString();
-                    }
-                    else
-                    {
-                        return (Convert.ToDouble(firstOperand) * (Convert.ToDouble(secondOperand) / 100)).ToString();
-                    }
+                        break;
+                    case "%":
+                        if (secondOperand == null)
+                        {
+                            return (Convert.ToDouble(firstOperand) / 100).ToString();
+                        }
+                        return (Convert.ToDouble(firstOperand) * Convert.ToDouble(secondOperand) / 100).ToString();
+                }
+                return "E";
+            
+        }
+
+        /// <summary>
+        /// Fix result is less than maximum output size.
+        /// </summary>
+        /// <param name="result">The result will be fix.</param>
+        /// <param name="maxOutputSize">Define maximum munber of digits</param>
+        /// <returns>The stirng of result is fixed.</returns>
+        private string fixFractionalParts(double result, int maxOutputSize)
+        {
+            // split between integer part and fractional part
+            string[] parts = result.ToString().Split('.');
+            // if integer part length is already break max output, return error
+            if (parts[0].Length > maxOutputSize)
+            {
+                return "E";
             }
-            return "E";
+            if (parts.Length == 1)
+            {
+                return result.ToString();
+            }
+            // calculate remaining space for fractional part.
+            int remainLength = maxOutputSize - parts[0].Length - 1;
+            // trim the fractional part gracefully. =
+            if (parts[1].Length < remainLength)
+            {
+                return result.ToString();
+            }
+            else
+            {
+                return result.ToString("N" + remainLength);
+            }
         }
     }
 }

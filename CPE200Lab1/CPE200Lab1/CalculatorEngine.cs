@@ -23,5 +23,15 @@ namespace CPE200Lab1
             return "E";           
         }
 
+        public String calculate(String operate, String operand, int maxOutputSize = 8)
+        {
+            return "E";
+        }
+
+        public String calculate(String operate, String firstOperand, String secondOperand, int maxOutputSize = 8)
+        {
+            return "E";
+        }
+
     }
 }

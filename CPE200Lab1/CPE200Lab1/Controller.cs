@@ -1,29 +1,45 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CPE200Lab1
 {
-    class Controller
+    public class Controller
     {
-        protected ArrayList mList;
+        CalculatorEngine engine1;
+        RPNCalculatorEngine engine2;
 
         public Controller()
         {
-            mList = new ArrayList();
+
         }
 
-        public void AddModel(Model m)
+        public Controller(string str)
         {
-            mList.Add(m);
+            engine1 = new CalculatorEngine();
+            engine2 = new RPNCalculatorEngine();
+
+        }
+        public string calculate(string str)
+        {
+            return engine1.calculate(str);
         }
 
-        // virtual keyword allow the method to be overriden
-        public virtual void ActionPerformed(int action)
+        public string calculate(string operate, string operand, int maxOutputSize = 8)
         {
-            throw new NotImplementedException();
+            return engine1.calculate(operate,operand,8);
+        }
+
+        public string calculate(string operate, string firstOperand, string secondOperand, int maxOutputSize = 8)
+        {
+                return engine1.calculate(operate, firstOperand, secondOperand, 8);            
+        }
+
+        public string RPNcalculate(string str)
+        {
+            return engine2.calculate(str);
         }
     }
 }

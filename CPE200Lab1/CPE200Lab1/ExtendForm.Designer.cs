@@ -323,7 +323,7 @@
             this.one_overX.TabIndex = 42;
             this.one_overX.Text = "1/x";
             this.one_overX.UseVisualStyleBackColor = true;
-            this.one_overX.Click += new System.EventHandler(this.one_overX_Click);
+            
             // 
             // Percent
             // 
@@ -335,7 +335,7 @@
             this.Percent.TabIndex = 43;
             this.Percent.Text = "%";
             this.Percent.UseVisualStyleBackColor = true;
-            this.Percent.Click += new System.EventHandler(this.Percent_Click);
+            
             // 
             // sqrt
             // 
@@ -347,7 +347,7 @@
             this.sqrt.TabIndex = 44;
             this.sqrt.Text = "√";
             this.sqrt.UseVisualStyleBackColor = true;
-            this.sqrt.Click += new System.EventHandler(this.sqrt_Click);
+            
             // 
             // Memory_Store
             // 
@@ -359,7 +359,7 @@
             this.Memory_Store.TabIndex = 45;
             this.Memory_Store.Text = "MS";
             this.Memory_Store.UseVisualStyleBackColor = true;
-            this.Memory_Store.Click += new System.EventHandler(this.Memory_Store_Click);
+            
             // 
             // Memory_recall
             // 
@@ -371,7 +371,7 @@
             this.Memory_recall.TabIndex = 46;
             this.Memory_recall.Text = "MR";
             this.Memory_recall.UseVisualStyleBackColor = true;
-            this.Memory_recall.Click += new System.EventHandler(this.Memory_recall_Click);
+            
             // 
             // Memory_Add
             // 
@@ -383,7 +383,7 @@
             this.Memory_Add.TabIndex = 47;
             this.Memory_Add.Text = "M+";
             this.Memory_Add.UseVisualStyleBackColor = true;
-            this.Memory_Add.Click += new System.EventHandler(this.Memory_Add_Click);
+            
             // 
             // Memory_minus
             // 
@@ -395,7 +395,7 @@
             this.Memory_minus.TabIndex = 48;
             this.Memory_minus.Text = "M-";
             this.Memory_minus.UseVisualStyleBackColor = true;
-            this.Memory_minus.Click += new System.EventHandler(this.Memory_minus_Click);
+           
             // 
             // Memory_clear
             // 
@@ -407,7 +407,7 @@
             this.Memory_clear.TabIndex = 49;
             this.Memory_clear.Text = "MC";
             this.Memory_clear.UseVisualStyleBackColor = true;
-            this.Memory_clear.Click += new System.EventHandler(this.Memory_clear_Click);
+            
             // 
             // ExtendForm
             // 
